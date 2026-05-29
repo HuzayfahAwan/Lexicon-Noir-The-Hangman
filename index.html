@@ -1,106 +1,166 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- The name of our website present in the tab -->
-  <title>Hangman</title>
-<!-- Our icon that will be present in the tab next to the website's name -->
+  <title>Lexicon Noir — Hangman</title>
   <link rel="icon" href="icon.png" type="image/x-icon">
-<!-- Linking both the style.css file and Bulma documentation, in case we want to add our own CSS and Bulma's CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"/>
   <link href="style.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
-  
+
+  <!-- Stats Modal -->
+  <div id="stats-modal" class="modal-overlay is-hidden">
+    <div id="stats-modal-box">
+      <button id="stats-close-btn">&#x2715;</button>
+      <h2 class="modal-title">YOUR STATS</h2>
+      <div id="stats-modal-content"></div>
+      <button id="reset-stats-btn">RESET ALL STATS</button>
+    </div>
+  </div>
+
   <section id="body" class="hero is-black is-fullheight">
-    
-    <!-- The navbar at the top -->
+
+    <!-- Navbar -->
     <div class="hero-head">
       <header class="navbar is-justify-content-space-between">
         <div id="navtextdiv" class="is-flex is-justify-content-flex-start navbar-brand">
-          <a href="index.html">
-            <h1 id="navtext">Hangman</h1>
-          </a>
+          <a href="index.html"><h1 id="navtext">Lexicon Noir</h1></a>
         </div>
         <div id="flippingalphabet" class="is-flex is-justify-content-center">
           <div id="alphabetdiv">
-           <span style="--i:1">a</span>
-           <span style="--i:2">b</span>
-           <span style="--i:3">c</span>
-           <span style="--i:4">d</span>
-           <span style="--i:5">e</span>
-           <span style="--i:6">f</span>
-           <span style="--i:7">g</span>
-           <span style="--i:8">h</span>
-           <span style="--i:9">i</span>
-           <span style="--i:10">j</span>
-           <span style="--i:11">k</span>
-           <span style="--i:12">l</span>
-           <span style="--i:13">m</span>
-           <span style="--i:14">n</span>
-           <span style="--i:15">o</span>
-           <span style="--i:16">p</span>
-           <span style="--i:17">q</span>
-           <span style="--i:18">r</span>
-           <span style="--i:19">s</span>
-           <span style="--i:20">t</span>
-           <span style="--i:21">u</span>
-           <span style="--i:22">v</span>
-           <span style="--i:23">w</span>
-           <span style="--i:24">x</span>
-           <span style="--i:25">y</span>
-           <span style="--i:26">z</span>
+            <span style="--i:1">a</span><span style="--i:2">b</span><span style="--i:3">c</span>
+            <span style="--i:4">d</span><span style="--i:5">e</span><span style="--i:6">f</span>
+            <span style="--i:7">g</span><span style="--i:8">h</span><span style="--i:9">i</span>
+            <span style="--i:10">j</span><span style="--i:11">k</span><span style="--i:12">l</span>
+            <span style="--i:13">m</span><span style="--i:14">n</span><span style="--i:15">o</span>
+            <span style="--i:16">p</span><span style="--i:17">q</span><span style="--i:18">r</span>
+            <span style="--i:19">s</span><span style="--i:20">t</span><span style="--i:21">u</span>
+            <span style="--i:22">v</span><span style="--i:23">w</span><span style="--i:24">x</span>
+            <span style="--i:25">y</span><span style="--i:26">z</span>
           </div>
         </div>
-        <!-- The Rules Button at the top-right -->
-        <div id="rulesbuttondiv" class="is-flex is-flex-direction-column is-justify-content-center">
-          <a href="#rulesdiv">
-            <button id="rulesbutton" class="button is-black is-inverted is-outlined is-medium is-responsive">
-            <span class="icon">
-              <img src="icon.png">
-            </span>
-            <span id="readrules">Read the Rules!</span>
-            </button>
-          </a>
+        <div id="nav-actions" class="is-flex is-align-items-center">
+          <button id="statsbutton" class="nav-action-btn">Stats</button>
+          <button id="rulesbutton" class="nav-action-btn">Rules</button>
         </div>
       </header>
     </div>
-    
-    <!-- The body of the homepage after the navbar -->
-    <div class="hero-body">
-      <div id="centerbodypictext" class="columns">
-        <div id="bodyflex" class="column container is-flex is-justify-content-space-between">
-          <img id="HangmanPic" src="https://store-images.s-microsoft.com/image/apps.31378.14440169033196048.33ec04e1-f2d4-46ed-a05b-03b332738f93.8032cfe7-683a-4be1-8b4c-9da7dc14c2b3?q=90&w=480&h=270" alt="Hangman Picture">
-          <h1 id="willyou" class="has-text-centered">Will you let him<br>suffer a horrible death &#10067;<br><br>
-            <a href="game.html">
-              <button id="startbutton" class="button is-black is-inverted is-outlined is-medium is-responsive">
-                <span id="startgame">START GAME</span>
-              </button>
-            </a>
-          </h1>
-        </div>
+
+    <!-- Stats Bar -->
+    <div id="stats-bar">
+      <div class="stat-item">
+        <span class="stat-label">WINS</span>
+        <span class="stat-value wins" id="stat-wins">0</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-label">LOSSES</span>
+        <span class="stat-value losses" id="stat-losses">0</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-label">STREAK</span>
+        <span class="stat-value streak" id="stat-streak">0</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-label">BEST</span>
+        <span class="stat-value best" id="stat-best">0</span>
       </div>
     </div>
 
-    <!-- The Rules Section of the homepage (will be unhidden if user clicks the "read the rules!" button at the top right of the homepage; if the user does not click that button, then this section will remain hidden, making the assumption that the user knows the rule already) -->  
-    <div id="rulesdiv" class="is-hidden is-flex is-flex-direction-column">
-      <h1 id="gamerules">Rules</h1>
-      <h1 class="rulestext"><span class="standout">1.</span> The computer will generate <span class="keyword">a secret word</span> for you (the user) to guess.</h1>
-      <h1 class="rulestext"><span class="standout">2.</span> An empty noose will displayed on screen, and the secret word's length will be revealed by dashes displayed on the screen.</h1>
-      <h1 class="rulestext"><span class="standout">3.</span> You (the user) will have <span class="keyword">six opportunities</span> to guess the secret word. For each guess, you are only allowed to guess one letter out of the 26 letters in the English alphabet.</h1>
-      <h1 class="rulestext"><span class="standout">4.</span> If you <span class="keyword">guess a letter</span> and it is not in the secret word, one of the Hangman's body parts is attached to the noose on screen. You are<span class="emphasis"> NOT allowed to guess the same letter</span>; if you do, then you will be alerted to guess a different letter. If you guess a letter and it is in the secret word, then it will be revealed where exactly in the secret word the letter holds a place.</h1>
-      <h1 class="rulestext"><span class="standout">5.</span> If you guess the secret word correctly <span class="keyword">before all of the Hangman's body parts are attached to the noose</span>, then you win! If not, then you lose, but you can always try again with the CPU generating a different word!</h1>
-      <h1 class="rulestext"><span class="standout">6.</span> <span class="keyword">Good luck</span> and have fun!</h1>
-    </div>
-    
-  </section>
-  
-<!-- Linking the script.js file, so our code in that file allows this webpage to include user interaction -->
-  <script src="script.js" type="text/javascript" defer></script>
-  
-</body>
+    <!-- Hero Body -->
+    <div class="hero-body">
+      <div id="main-content">
 
+        <h2 id="subtitle">Choose your fate.</h2>
+
+        <!-- Game Mode -->
+        <div id="mode-section">
+          <h3 class="section-label">GAME MODE</h3>
+          <div id="mode-grid">
+            <button class="mode-btn active" data-mode="classic">
+              <span class="mode-name">Classic</span>
+              <span class="mode-desc">Standard hangman</span>
+            </button>
+            <button class="mode-btn" data-mode="daily">
+              <span class="mode-name">Daily Challenge</span>
+              <span class="mode-desc">One word per day</span>
+            </button>
+            <button class="mode-btn" data-mode="timed">
+              <span class="mode-name">Timed</span>
+              <span class="mode-desc">90 second countdown</span>
+            </button>
+            <button class="mode-btn" data-mode="twoplayer">
+              <span class="mode-name">Two Player</span>
+              <span class="mode-desc">Challenge a friend</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Two-Player Word Entry (shown only in twoplayer mode) -->
+        <div id="twoplayer-section" class="is-hidden">
+          <h3 class="section-label">PLAYER 1 &mdash; ENTER SECRET WORD</h3>
+          <div id="twoplayer-entry">
+            <input id="twoplayer-input" type="password" maxlength="15"
+              placeholder="type your word..." autocomplete="off" spellcheck="false"/>
+            <p id="twoplayer-hint">Letters only &mdash; 2 to 15 characters</p>
+          </div>
+        </div>
+
+        <!-- Category Selection -->
+        <div id="category-section">
+          <h3 class="section-label">CATEGORY</h3>
+          <div id="category-grid">
+            <button class="category-btn active" data-category="random">Random</button>
+            <button class="category-btn" data-category="animals">Animals</button>
+            <button class="category-btn" data-category="countries">Countries</button>
+            <button class="category-btn" data-category="tech">Technology</button>
+            <button class="category-btn" data-category="movies">Movies</button>
+            <button class="category-btn" data-category="science">Science</button>
+            <button class="category-btn" data-category="sports">Sports</button>
+          </div>
+        </div>
+
+        <!-- Difficulty Selection (hidden in twoplayer + daily) -->
+        <div id="difficulty-section">
+          <h3 class="section-label">DIFFICULTY</h3>
+          <div id="difficulty-pills">
+            <button class="diff-btn" data-difficulty="easy">EASY</button>
+            <button class="diff-btn active" data-difficulty="normal">NORMAL</button>
+            <button class="diff-btn" data-difficulty="hard">HARD</button>
+          </div>
+          <p id="diff-description">Medium-length words. 6 lives.</p>
+        </div>
+
+        <!-- Start Button -->
+        <div id="start-section">
+          <button id="startbutton" onclick="launchGame()">PLAY</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Rules Section -->
+    <div id="rulesdiv" class="is-hidden">
+      <h1 id="gamerules">Rules</h1>
+      <p class="rulestext"><span class="standout">1.</span> A secret word is chosen from your selected category.</p>
+      <p class="rulestext"><span class="standout">2.</span> Each dash represents one letter in the word.</p>
+      <p class="rulestext"><span class="standout">3.</span> Guess one letter at a time &mdash; type it or click the on-screen keyboard.</p>
+      <p class="rulestext"><span class="standout">4.</span> A wrong guess draws a body part on the gallows. Too many wrong guesses = <span class="emphasis">game over</span>.</p>
+      <p class="rulestext"><span class="standout">5.</span> Press <span class="keyword">H</span> or click USE HINT to reveal a random letter &mdash; costs <span class="emphasis">1 life</span>.</p>
+      <p class="rulestext"><span class="standout">6.</span> <span class="keyword">Daily Challenge</span>: one unique word each day, same for everyone.</p>
+      <p class="rulestext"><span class="standout">7.</span> <span class="keyword">Timed</span>: 90 second clock. Wrong guesses cost extra seconds.</p>
+      <p class="rulestext"><span class="standout">8.</span> <span class="keyword">Two Player</span>: Player 1 types a secret word, Player 2 guesses it.</p>
+    </div>
+
+  </section>
+
+  <script src="script.js" defer></script>
+
+</body>
 </html>

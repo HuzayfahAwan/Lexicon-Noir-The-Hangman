@@ -1,124 +1,144 @@
-<!-- GROUP MEMBERS: Huzayfah (Hayyan), Shahran, Ghaida -->
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width">
-<!-- The name of our website present in the tab -->
-  <title>Hangman</title>
-<!-- Our icon that will be present in the tab next to the website's name -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lexicon Noir — Play</title>
   <link rel="icon" href="icon.png" type="image/x-icon">
-<!-- Linking both the style.css file and Bulma documentation, in case we want to add our own CSS and Bulma's CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"/>
   <link href="game.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
-  
+
+  <!-- Confetti Canvas (fixed overlay, pointer-events none) -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Toast Notifications -->
+  <div id="toast-container"></div>
+
   <section id="body" class="hero is-black is-fullheight">
-    
-    <!-- The navbar at the top -->
+
+    <!-- Navbar -->
     <div class="hero-head">
       <header class="navbar is-justify-content-space-between">
         <div id="gohomediv" class="is-flex is-justify-content-flex-start navbar-brand">
-          <h1 id="navtext">Go Back to Home</h1>
+          <button id="go-home-btn" class="nav-home-btn">&#8592; Home</button>
         </div>
         <div id="flippingalphabet" class="is-flex is-justify-content-center">
           <div id="alphabetdiv">
-           <span style="--i:1">a</span>
-           <span style="--i:2">b</span>
-           <span style="--i:3">c</span>
-           <span style="--i:4">d</span>
-           <span style="--i:5">e</span>
-           <span style="--i:6">f</span>
-           <span style="--i:7">g</span>
-           <span style="--i:8">h</span>
-           <span style="--i:9">i</span>
-           <span style="--i:10">j</span>
-           <span style="--i:11">k</span>
-           <span style="--i:12">l</span>
-           <span style="--i:13">m</span>
-           <span style="--i:14">n</span>
-           <span style="--i:15">o</span>
-           <span style="--i:16">p</span>
-           <span style="--i:17">q</span>
-           <span style="--i:18">r</span>
-           <span style="--i:19">s</span>
-           <span style="--i:20">t</span>
-           <span style="--i:21">u</span>
-           <span style="--i:22">v</span>
-           <span style="--i:23">w</span>
-           <span style="--i:24">x</span>
-           <span style="--i:25">y</span>
-           <span style="--i:26">z</span>
+            <span style="--i:1">a</span><span style="--i:2">b</span><span style="--i:3">c</span>
+            <span style="--i:4">d</span><span style="--i:5">e</span><span style="--i:6">f</span>
+            <span style="--i:7">g</span><span style="--i:8">h</span><span style="--i:9">i</span>
+            <span style="--i:10">j</span><span style="--i:11">k</span><span style="--i:12">l</span>
+            <span style="--i:13">m</span><span style="--i:14">n</span><span style="--i:15">o</span>
+            <span style="--i:16">p</span><span style="--i:17">q</span><span style="--i:18">r</span>
+            <span style="--i:19">s</span><span style="--i:20">t</span><span style="--i:21">u</span>
+            <span style="--i:22">v</span><span style="--i:23">w</span><span style="--i:24">x</span>
+            <span style="--i:25">y</span><span style="--i:26">z</span>
           </div>
         </div>
-        <div id="endofnavdiv" class="is-flex is-flex-direction-column is-justify-content-center">
-          <span id="inagame">You are in a Game Session!</span>
+        <div id="nav-right" class="is-flex is-align-items-center">
+          <span id="category-display" class="nav-badge"></span>
+          <span class="nav-sep">&nbsp;&middot;&nbsp;</span>
+          <span id="difficulty-display" class="nav-badge"></span>
+          <span class="nav-sep">&nbsp;&middot;&nbsp;</span>
+          <span id="mode-display" class="nav-badge mode-badge"></span>
         </div>
       </header>
     </div>
 
-    <!-- The body of the homepage after the navbar -->
-    <div id="bodyflex" class="hero-body">
-      <div id="imgbuttonlayout" class="is-flex is-flex-direction-column">
-        <img id="noose" src="https://store-images.s-microsoft.com/image/apps.31378.14440169033196048.33ec04e1-f2d4-46ed-a05b-03b332738f93.8032cfe7-683a-4be1-8b4c-9da7dc14c2b3?q=90&w=480&h=270">
-        <button id="generatebtn" class="button is-black is-inverted is-outlined is-medium is-responsive">
-        GENERATE WORD
-        </button>
+    <!-- Stats Bar -->
+    <div id="stats-bar">
+      <div class="stat-item">
+        <span class="stat-label">WINS</span>
+        <span class="stat-value wins" id="stat-wins">0</span>
       </div>
-      <div id="letterondash">
-        <div id="dashesflex" class="is-flex">
-        <!-- The JavaScript code will add stuff inside this div with .innerHTML -->
-        </div>
-        <div id="lettersflex" class="is-flex">
-        <!-- The JavaScript code will add stuff inside this div with .innerHTML -->
-        </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-label">LOSSES</span>
+        <span class="stat-value losses" id="stat-losses">0</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-label">STREAK</span>
+        <span class="stat-value streak" id="stat-streak">0</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-label">BEST</span>
+        <span class="stat-value best" id="stat-best">0</span>
       </div>
     </div>
-    
-    <!-- The div containing the on-screen alphabet -->
-    <div id="onscreenalphabet" class="is-flex is-flex-direction-column">
-      <h1 id="pressaletter" class="is-hidden">(Press a letter on your keyboard!)</h1>
-      <h1 id="alphabet" class="is-hidden">
-        <span id="A" class="letter">a</span>&nbsp;&nbsp;&nbsp;
-        <span id="B" class="letter">b</span>&nbsp;&nbsp;&nbsp;
-        <span id="C" class="letter">c</span>&nbsp;&nbsp;&nbsp;
-        <span id="D" class="letter">d</span>&nbsp;&nbsp;&nbsp;
-        <span id="E" class="letter">e</span>&nbsp;&nbsp;&nbsp;
-        <span id="F" class="letter">f</span>&nbsp;&nbsp;&nbsp;
-        <span id="G" class="letter">g</span>&nbsp;&nbsp;&nbsp;
-        <span id="H" class="letter">h</span>&nbsp;&nbsp;&nbsp;
-        <span id="I" class="letter">i</span>&nbsp;&nbsp;&nbsp;
-        <span id="J" class="letter">j</span>&nbsp;&nbsp;&nbsp;
-        <span id="K" class="letter">k</span>&nbsp;&nbsp;&nbsp;
-        <span id="L" class="letter">l</span>&nbsp;&nbsp;&nbsp;
-        <span id="M" class="letter">m</span>&nbsp;&nbsp;&nbsp;
-        <span id="N" class="letter">n</span>&nbsp;&nbsp;&nbsp;
-        <span id="O" class="letter">o</span>&nbsp;&nbsp;&nbsp;
-        <span id="P" class="letter">p</span>&nbsp;&nbsp;&nbsp;
-        <span id="Q" class="letter">q</span>&nbsp;&nbsp;&nbsp;
-        <span id="R" class="letter">r</span>&nbsp;&nbsp;&nbsp;
-        <span id="S" class="letter">s</span>&nbsp;&nbsp;&nbsp;
-        <span id="T" class="letter">t</span>&nbsp;&nbsp;&nbsp;
-        <span id="U" class="letter">u</span>&nbsp;&nbsp;&nbsp;
-        <span id="V" class="letter">v</span>&nbsp;&nbsp;&nbsp;
-        <span id="W" class="letter">w</span>&nbsp;&nbsp;&nbsp;
-        <span id="X" class="letter">x</span>&nbsp;&nbsp;&nbsp;
-        <span id="Y" class="letter">y</span>&nbsp;&nbsp;&nbsp;
-        <span id="Z" class="letter">z</span>
-      </h1>
-    </div>
-    <a class="is-hidden button is-black is-inverted is-outlined is-medium is-responsive" id="reset-btn" href="game.html">Play Again
-    </a>
-    
-  </section>
-  
-  <!-- Linking the game.js file, so our code in that file allows this webpage to include user interaction -->
-  <script src="game.js" type="text/javascript" defer></script>
-  
-</body>
 
+    <!-- Main Game Area -->
+    <div id="game-area" class="hero-body">
+
+      <!-- Left Column: Hangman + Controls -->
+      <div id="hangman-column">
+
+        <svg id="hangman-svg" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
+          <!-- Gallows -->
+          <line x1="20"  y1="245" x2="180" y2="245" class="gallows" style="--delay:0s"/>
+          <line x1="60"  y1="245" x2="60"  y2="15"  class="gallows" style="--delay:0.15s"/>
+          <line x1="60"  y1="15"  x2="135" y2="15"  class="gallows" style="--delay:0.35s"/>
+          <line x1="135" y1="15"  x2="135" y2="48"  class="gallows" style="--delay:0.55s"/>
+          <!-- Body Parts -->
+          <circle id="head"       cx="135" cy="68" r="20"              class="body-part"/>
+          <line   id="body"       x1="135" y1="88"  x2="135" y2="158" class="body-part"/>
+          <line   id="left-arm"   x1="135" y1="108" x2="105" y2="138" class="body-part"/>
+          <line   id="right-arm"  x1="135" y1="108" x2="165" y2="138" class="body-part"/>
+          <line   id="left-leg"   x1="135" y1="158" x2="110" y2="205" class="body-part"/>
+          <line   id="right-leg"  x1="135" y1="158" x2="160" y2="205" class="body-part"/>
+          <line   id="left-foot"  x1="110" y1="205" x2="90"  y2="215" class="body-part"/>
+          <line   id="right-foot" x1="160" y1="205" x2="180" y2="215" class="body-part"/>
+        </svg>
+
+        <!-- Timer (shown in timed mode) -->
+        <div id="timer-section" class="is-hidden">
+          <div id="timer-bar-track"><div id="timer-bar"></div></div>
+          <span id="timer-display">90s</span>
+        </div>
+
+        <div id="wrong-display">
+          <span class="wrong-label">WRONG</span>
+          <span id="wrong-counter">0 / 6</span>
+        </div>
+
+        <button id="hint-btn">USE HINT &nbsp;<span class="shortcut-key">H</span></button>
+        <p class="hint-subtext">Reveals a letter &mdash; costs 1 life</p>
+
+      </div>
+
+      <!-- Right Column: Word + Alphabet -->
+      <div id="word-column">
+
+        <div id="word-display">
+          <div id="letterondash">
+            <div id="dashesflex"></div>
+            <div id="lettersflex"></div>
+          </div>
+        </div>
+
+        <div id="result-message" class="is-hidden"></div>
+
+        <div id="alphabet-grid"></div>
+
+        <div id="action-buttons">
+          <button id="play-again-btn" class="is-hidden">PLAY AGAIN &nbsp;<span class="shortcut-key">&#x23CE;</span></button>
+          <button id="share-btn"      class="is-hidden">SHARE RESULT</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Word Definition (shown on loss) -->
+    <div id="definition-section" class="is-hidden"></div>
+
+  </section>
+
+  <script src="game.js" defer></script>
+
+</body>
 </html>
