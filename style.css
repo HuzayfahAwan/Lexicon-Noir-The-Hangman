@@ -30,7 +30,7 @@ header.navbar {
 
 #navtext {
   animation: glitch 1s linear infinite;
-  font-size: 36px;
+  font-size: 40px;
   font-family: 'Fira Mono', monospace;
   letter-spacing: 3px;
   color: white;
@@ -64,40 +64,46 @@ header.navbar {
   border-color: white;
 }
 
+#rulesbutton {
+  font-family: 'Fira Mono', monospace;
+  letter-spacing: 1px;
+}
+
 /* ===== STATS BAR ===== */
 
 #stats-bar {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid #2a2a2a;
-  padding: 10px 0;
+  border-bottom: 1px solid #1e1e1e;
+  padding: 5px 0;
   background: rgba(0,0,0,0.6);
 }
 
 .stat-item {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 28px;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 6px;
+  padding: 0 20px;
 }
 
 .stat-divider {
   width: 1px;
-  height: 28px;
-  background: #333;
+  height: 16px;
+  background: #2a2a2a;
 }
 
 .stat-label {
   font-family: 'Fira Mono', monospace;
-  font-size: 10px;
-  color: #555;
-  letter-spacing: 3px;
+  font-size: 9px;
+  color: #444;
+  letter-spacing: 2px;
 }
 
 .stat-value {
   font-family: 'Fira Mono', monospace;
-  font-size: 22px;
+  font-size: 14px;
   font-weight: bold;
   color: white;
   transition: transform 0.2s;
@@ -113,33 +119,50 @@ header.navbar {
 .hero-body {
   display: flex;
   align-items: flex-start !important;
-  padding: 40px 20px !important;
+  padding: 0 20px 40px !important;
 }
 
 #main-content {
   width: 100%;
-  max-width: 800px;
+  max-width: 960px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
 }
 
-#subtitle {
+/* ===== HERO AREA ===== */
+
+#hero-area {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  padding: 40px 0 44px 0;
+  border-bottom: 1px solid #1e1e1e;
+}
+
+#HangmanPic {
+  border-radius: 5px;
+  box-shadow: 5px 5px 22px white, -5px -5px 22px white;
+  width: 220px;
+  flex-shrink: 0;
+}
+
+#willyou {
   font-family: 'Fira Mono', monospace;
-  font-size: 20px;
-  color: #444;
-  letter-spacing: 6px;
-  text-align: center;
+  font-size: 42px;
+  color: white;
+  line-height: 1.4;
   margin: 0;
+  font-weight: bold;
 }
 
 .section-label {
   font-family: 'Fira Mono', monospace;
   font-size: 10px;
   letter-spacing: 4px;
-  color: #555;
-  margin: 0 0 12px 0;
+  color: #666;
+  margin: 0 0 10px 0;
 }
 
 /* ===== GAME MODE ===== */
@@ -297,17 +320,17 @@ header.navbar {
 #start-section {
   display: flex;
   justify-content: center;
-  padding-bottom: 20px;
+  padding: 16px 0 24px;
 }
 
 #startbutton {
   font-family: 'Fira Mono', monospace;
-  font-size: 18px;
-  letter-spacing: 8px;
-  padding: 14px 70px;
+  font-size: 22px;
+  letter-spacing: 10px;
+  padding: 18px 90px;
   background: transparent;
   color: white;
-  border: 1px solid white;
+  border: 2px solid white;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -315,7 +338,7 @@ header.navbar {
 #startbutton:hover {
   background: white;
   color: black;
-  box-shadow: 0 0 28px rgba(255,255,255,0.3);
+  box-shadow: 0 0 40px rgba(255,255,255,0.35);
 }
 
 /* ===== RULES ===== */
@@ -326,11 +349,12 @@ header.navbar {
   gap: 18px;
   padding: 40px 60px;
   border-top: 1px solid #1a1a1a;
+  color: #00FF00;
 }
 
 #gamerules {
   font-family: 'Fira Mono', monospace;
-  font-size: 24px;
+  font-size: 40px;
   color: white;
   text-decoration: underline;
   text-align: center;
@@ -339,15 +363,15 @@ header.navbar {
 
 .rulestext {
   font-family: 'Fira Mono', monospace;
-  font-size: 14px;
-  color: #777;
+  font-size: 25px;
+  color: #00FFFF;
   line-height: 1.9;
   margin: 0;
 }
 
 .emphasis { font-weight: bold; color: #FF3131; }
-.keyword  { font-weight: bold; color: #00FF41; }
-.standout { font-weight: bold; color: #FFD700; }
+.keyword  { font-weight: bold; color: #FF00FF; }
+.standout { font-weight: bold; color: #FFFF00; }
 
 /* ===== STATS MODAL ===== */
 
@@ -563,11 +587,17 @@ header.navbar {
 /* ===== RESPONSIVE ===== */
 
 @media (max-width: 700px) {
-  #navtext { font-size: 22px; }
+  #navtext { font-size: 24px; }
   #alphabetdiv { display: none; }
   #mode-grid { grid-template-columns: repeat(2, 1fr); }
-  .stat-item { padding: 0 14px; }
-  .stat-value { font-size: 18px; }
+  .stat-item { padding: 0 10px; }
+  .stat-value { font-size: 12px; }
   #rulesdiv { padding: 30px 20px; }
+  .rulestext { font-size: 16px; }
+  #gamerules { font-size: 28px; }
   .stats-overview-grid { grid-template-columns: repeat(2, 1fr); }
+  #hero-area { flex-direction: column; gap: 20px; padding: 28px 0 32px; }
+  #HangmanPic { width: 150px; }
+  #willyou { font-size: 30px; text-align: center; }
+  #startbutton { font-size: 18px; padding: 16px 60px; }
 }

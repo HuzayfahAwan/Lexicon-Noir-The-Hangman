@@ -106,30 +106,31 @@ header.navbar {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid #2a2a2a;
-  padding: 10px 0;
+  border-bottom: 1px solid #1e1e1e;
+  padding: 5px 0;
   flex-shrink: 0;
 }
 
 .stat-item {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 24px;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 6px;
+  padding: 0 20px;
 }
 
-.stat-divider { width: 1px; height: 26px; background: #2a2a2a; }
+.stat-divider { width: 1px; height: 16px; background: #2a2a2a; }
 
 .stat-label {
   font-family: 'Fira Mono', monospace;
-  font-size: 10px;
+  font-size: 9px;
   color: #444;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
 }
 
 .stat-value {
   font-family: 'Fira Mono', monospace;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: bold;
   color: white;
 }
@@ -163,20 +164,16 @@ header.navbar {
 /* ===== SVG HANGMAN ===== */
 
 #hangman-svg {
-  width: 220px;
-  height: 275px;
-  filter: drop-shadow(0 0 8px rgba(255,255,255,0.08));
+  width: 240px;
+  height: 300px;
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.14));
 }
 
 .gallows {
-  stroke: #444;
+  stroke: #606060;
   stroke-width: 3;
   stroke-linecap: round;
   fill: none;
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: drawLine 0.5s ease forwards;
-  animation-delay: var(--delay, 0s);
 }
 
 .body-part {
@@ -247,12 +244,12 @@ header.navbar {
   font-family: 'Fira Mono', monospace;
   font-size: 9px;
   letter-spacing: 4px;
-  color: #444;
+  color: #555;
 }
 
 #wrong-counter {
   font-family: 'Fira Mono', monospace;
-  font-size: 20px;
+  font-size: 26px;
   font-weight: bold;
   color: white;
   transition: color 0.3s;
@@ -324,14 +321,14 @@ header.navbar {
 
 #letterondash {
   position: relative;
-  height: 58px;
+  height: 72px;
 }
 
 #dashesflex {
   position: absolute;
   z-index: 1;
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 
 #lettersflex {
@@ -340,11 +337,11 @@ header.navbar {
   left: 0;
   z-index: 2;
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 
 .dash {
-  font-size: 30px;
+  font-size: 38px;
   font-family: 'Fira Mono', monospace;
   color: white;
   user-select: none;
@@ -352,7 +349,7 @@ header.navbar {
 }
 
 .alpha {
-  font-size: 30px;
+  font-size: 38px;
   font-family: 'Fira Mono', monospace;
   font-weight: bold;
   user-select: none;
@@ -366,7 +363,7 @@ header.navbar {
 
 #result-message {
   font-family: 'Fira Mono', monospace;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
   letter-spacing: 3px;
   text-align: left;
@@ -374,8 +371,8 @@ header.navbar {
   animation: fadeIn 0.4s ease;
 }
 
-#result-message.result-win  { color: #00FF41; text-shadow: 0 0 18px rgba(0,255,65,0.45); }
-#result-message.result-loss { color: #FF3131; font-size: 16px; text-shadow: 0 0 14px rgba(255,49,49,0.35); }
+#result-message.result-win  { color: #00FF41; text-shadow: 0 0 22px rgba(0,255,65,0.55); }
+#result-message.result-loss { color: #FF3131; text-shadow: 0 0 18px rgba(255,49,49,0.45); }
 
 /* ===== ALPHABET GRID ===== */
 
